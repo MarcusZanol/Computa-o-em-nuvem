@@ -1,0 +1,14 @@
+# Variáveis de ambiente com senhas reais
+.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Editores e sistema operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
