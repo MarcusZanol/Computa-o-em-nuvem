@@ -1,0 +1,24 @@
+# Cache e artefatos gerados pelo Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ambientes virtuais locais
+venv/
+.venv/
+
+# Arquivos de configuração com segredos
+.env
+
+# Controle de versão
+.git
+.gitignore
+
+# Arquivos do próprio Docker (não precisam estar dentro da imagem)
+Dockerfile
+.dockerignore
+
+# Editores e sistema operacional
+.vscode/
+.idea/
+.DS_Store
