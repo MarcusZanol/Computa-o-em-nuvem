@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Encurtador de URLs</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 760px; margin: 40px auto; padding: 0 16px; color: #222; }
+    h1 { margin-bottom: 4px; }
+    form { display: flex; gap: 8px; margin: 24px 0; }
+    input[type=text] { flex: 1; padding: 10px; font-size: 16px; border: 1px solid #bbb; border-radius: 6px; }
+    button { padding: 10px 18px; font-size: 16px; border: 0; border-radius: 6px; background: #2463eb; color: #fff; cursor: pointer; }
+    .novo { background: #e8f5e9; border: 1px solid #a5d6a7; padding: 12px; border-radius: 6px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #eee; font-size: 14px; }
+    td.url { max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  </style>
+</head>
+<body>
+  <h1>Encurtador de URLs</h1>
+  <p>Cole um endereço longo e receba um link curto. Os acessos são contabilizados.</p>
+
+  <form action="/encurtar" method="post">
+    <input type="text" name="url" placeholder="https://exemplo.com/um/endereco/bem/longo" required>
+    <button type="submit">Encurtar</button>
+  </form>
+
+  {% if novo %}
+  <div class="novo">
+    Link criado: <a href="/{{ novo }}" target="_blank">{{ request.host_url }}{{ novo }}</a>
+  </div>
+  {% endif %}
+
+  <h2>Últimos links</h2>
+  {% if links %}
+  <table>
+    <tr><th>Código</th><th>Destino</th><th>Acessos</th><th>Estatísticas</th></tr>
+    {% for l in links %}
+    <tr>
+      <td><a href="/{{ l.codigo }}" target="_blank">{{ l.codigo }}</a></td>
+      <td class="url" title="{{ l.url_original }}">{{ l.url_original }}</td>
+      <td>{{ l.acessos }}</td>
+      <td><a href="/stats/{{ l.codigo }}">JSON</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p>Nenhum link cadastrado ainda.</p>
+  {% endif %}
+</body>
+</html>
